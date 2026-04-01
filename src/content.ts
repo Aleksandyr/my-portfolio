@@ -3,17 +3,25 @@
  * https://www.linkedin.com/in/aleksandar-kamenov-220881104/details/experience/
  */
 
+export const contactEmail = "aleksandyr.kamenov@gmail.com";
+
+/** Opens the system default mail client (Mail on iPhone, Outlook, etc.). */
+export const mailtoHref = `mailto:${contactEmail}`;
+
+/** Opens Gmail compose in the browser (or the Gmail app when installed). */
+export const gmailComposeHref = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(contactEmail)}`;
+
 export const profile = {
   name: "Aleksandar Kamenov",
   title: "Front-end developer · Freelance",
   tagline:
-    "Calm interfaces and solid front-end delivery — from product teams to freelance engagements, with room to keep learning and building with purpose.",
+    "Seamless interfaces and solid front-end delivery — from product teams to freelance engagements, with room to keep learning and building with purpose.",
   location: "Sofia, Bulgaria",
-  avatarUrl: "https://avatars.githubusercontent.com/u/7037740?v=4",
+  avatarUrl: "/portrait.png",
   links: {
     github: "https://github.com/Aleksandyr",
     linkedin: "https://www.linkedin.com/in/aleksandar-kamenov-220881104/",
-    email: "mailto:aleksandyr.kamenov@gmail.com",
+    email: mailtoHref,
   },
 };
 

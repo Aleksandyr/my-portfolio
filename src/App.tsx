@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import {
   profile,
   services,
@@ -18,26 +19,85 @@ import {
   IconProductStack,
 } from "./components/WorkIcons";
 import { ServiceIcon } from "./components/ServiceIcons";
+import { EmailChoice } from "./components/EmailChoice";
+
+const PRIMARY_NAV: { href: string; label: string; cta?: boolean }[] = [
+  { href: "#services", label: "Services" },
+  { href: "#skills", label: "Skills" },
+  { href: "#experience", label: "Experience" },
+  { href: "#projects", label: "Projects" },
+  { href: "#contact", label: "Contact", cta: true },
+];
 
 function App() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [menuOpen]);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMenuOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [menuOpen]);
+
+  const closeMenu = () => setMenuOpen(false);
+
   return (
     <>
       <header className="site-header">
         <div className="site-header__inner">
-          <a className="logo" href="#top">
+          <a className="logo" href="#top" onClick={closeMenu}>
             {profile.name.split(" ")[0]} Kamenov
           </a>
-          <nav className="nav" aria-label="Primary">
-            <a href="#services">Services</a>
-            <a href="#skills">Skills</a>
-            <a href="#experience">Experience</a>
-            <a href="#projects">Projects</a>
-            <a href="#contact" className="nav__cta">
-              Contact
-            </a>
+          <button
+            type="button"
+            className={`nav-toggle ${menuOpen ? "nav-toggle--open" : ""}`}
+            aria-expanded={menuOpen}
+            aria-controls="primary-navigation"
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            onClick={() => setMenuOpen((o) => !o)}
+          >
+            <span className="nav-toggle__bars" aria-hidden>
+              <span />
+              <span />
+              <span />
+            </span>
+          </button>
+          <nav
+            className={`nav ${menuOpen ? "nav--open" : ""}`}
+            id="primary-navigation"
+            aria-label="Primary"
+          >
+            {PRIMARY_NAV.map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                className={item.cta ? "nav__cta" : undefined}
+                onClick={closeMenu}
+              >
+                {item.label}
+              </a>
+            ))}
           </nav>
         </div>
       </header>
+      {menuOpen ? (
+        <div
+          className="nav-backdrop"
+          aria-hidden
+          onClick={closeMenu}
+        />
+      ) : null}
 
       <main id="top">
         <section className="hero" aria-labelledby="hero-title">
@@ -47,9 +107,7 @@ function App() {
               <h1 id="hero-title">{profile.title}</h1>
               <p className="hero__lead">{profile.tagline}</p>
               <div className="hero__actions">
-                <a className="btn btn--primary" href={profile.links.email}>
-                  Start a project
-                </a>
+                <EmailChoice label="Start a project" />
                 <a className="btn btn--ghost" href={profile.links.github}>
                   GitHub
                 </a>
@@ -77,7 +135,7 @@ function App() {
               <h2 id="services-title">Services</h2>
               <p>
                 Focused offerings — a single craftsman for interface work, from first
-                sketch to shipped code. Pick what you need; everything stays coherent.
+                sketch to shipped code. Pick what you need, everything stays coherent.
               </p>
             </header>
             <div className="service-grid">
@@ -317,9 +375,7 @@ function App() {
                 next steps.
               </p>
               <div className="contact-links">
-                <a className="btn btn--primary" href={profile.links.email}>
-                  Email
-                </a>
+                <EmailChoice label="Email" />
                 <a className="btn btn--ghost" href={profile.links.linkedin}>
                   LinkedIn
                 </a>
