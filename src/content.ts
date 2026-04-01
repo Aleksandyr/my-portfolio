@@ -17,26 +17,40 @@ export const profile = {
   },
 };
 
-export const services = [
+export type ServiceIconId =
+  | "frontend"
+  | "redesign"
+  | "components"
+  | "landing";
+
+export const services: {
+  title: string;
+  description: string;
+  icon: ServiceIconId;
+}[] = [
   {
     title: "Front-end development",
     description:
       "Production-ready React and modern JavaScript/TypeScript. Performance, accessibility, and maintainable structure.",
+    icon: "frontend",
   },
   {
     title: "Redesign & UX polish",
     description:
       "Refresh existing products: clearer hierarchy, softer visuals, and interactions that feel intentional.",
+    icon: "redesign",
   },
   {
     title: "Custom web components",
     description:
       "Reusable UI pieces — from design system building blocks to embeddable widgets that match your brand.",
+    icon: "components",
   },
   {
     title: "Landing pages & web apps",
     description:
       "Marketing sites and lightweight applications: fast loads, responsive layouts, and copy-friendly sections.",
+    icon: "landing",
   },
 ];
 

@@ -17,6 +17,7 @@ import {
   IconLayoutDesign,
   IconProductStack,
 } from "./components/WorkIcons";
+import { ServiceIcon } from "./components/ServiceIcons";
 
 function App() {
   return (
@@ -75,13 +76,19 @@ function App() {
             <header className="section__head">
               <h2 id="services-title">Services</h2>
               <p>
-                Focused offerings — you get a single craftsman for interface work,
-                from first sketch to shipped code.
+                Focused offerings — a single craftsman for interface work, from first
+                sketch to shipped code. Pick what you need; everything stays coherent.
               </p>
             </header>
             <div className="service-grid">
               {services.map((s) => (
-                <article key={s.title} className="service-card">
+                <article
+                  key={s.title}
+                  className={`service-card service-card--${s.icon}`}
+                >
+                  <div className="service-card__icon" aria-hidden>
+                    <ServiceIcon id={s.icon} />
+                  </div>
                   <h3>{s.title}</h3>
                   <p>{s.description}</p>
                 </article>
