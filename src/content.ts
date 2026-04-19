@@ -17,7 +17,7 @@ export const profile = {
   tagline:
     "Seamless interfaces and solid front-end delivery — from product teams to freelance engagements, with room to keep learning and building with purpose.",
   location: "Sofia, Bulgaria",
-  avatarUrl: "/portrait.png",
+  avatarUrl: `${import.meta.env.BASE_URL}portrait.png`,
   links: {
     github: "https://github.com/Aleksandyr",
     linkedin: "https://www.linkedin.com/in/aleksandar-kamenov-220881104/",
