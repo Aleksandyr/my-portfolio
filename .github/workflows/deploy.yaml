@@ -8,6 +8,9 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    # Required so peaceiris/actions-gh-pages can push to gh-pages (default token is read-only otherwise).
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout code
